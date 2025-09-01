@@ -5,13 +5,7 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 import time
-
-############ master file 
-
-bond007 = 'C:\\Users\\Dell\\Desktop\\Excel_Files\\01_09_2025.xlsx'
-
-##########################
-
+ 
 st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="auto", menu_items=None) 
 
 pd.options.mode.copy_on_write = True
@@ -21,12 +15,9 @@ with col1:
     uploaded_file = st.file_uploader("Upload your CSV file", width=800)
 
 if uploaded_file is None:
-   data=pd.read_excel(bond007, sheet_name='NIFTY')
-   
+    st.write("Please upload file")
 else:
      data=pd.read_excel(uploaded_file)
-     #data=pd.read_csv(uploaded_file)
-
 
 data=data.replace('-',0).replace(',','')
 data1 = data.copy()
@@ -651,6 +642,7 @@ with tab7:
 
 
        
+
 
 
 
