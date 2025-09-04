@@ -13,7 +13,7 @@ pd.options.mode.copy_on_write = True
 
 tab1, tab2, tab3=st.tabs(["Nothing", "adding data to main file", "Making main file"])
 
-data = st.fileuploader("csv file upload", key='upload1')
+data = st.file_uploader("csv file upload", key='upload1')
 
 if data!=None:
  df=pd.read_csv(data, skiprows=1, usecols=['OI', 'CHNG IN OI', 'VOLUME', 'IV', 'LTP', 'CHNG','BID QTY', 'BID', 'ASK', 'ASK QTY', 'STRIKE', 'BID QTY.1', 'BID.1','ASK.1', 'ASK QTY.1', 'CHNG.1', 'LTP.1',\
@@ -85,3 +85,4 @@ st.write(data)
 #             .format(precision=2, subset=['Time', 'CHNG', 'CHNG.1', 'Spot_Price']).format(precision=0, subset=['CALL_LTP', 'PUT_LTP', 'CALL_CHNG','CALL_OI','CALL_VOLUME','PUT_VOLUME','PUT_OI','PUT_CHNG','STRIKE']).map(color_two, subset=['STRIKE']).map(color_all, subset=[ 'Spot_Price','CALL_LTP', 'PUT_LTP','CHNG', 'CHNG.1'])
 #     st.dataframe(love01, hide_index=True, column_order=['Time','CALL_CHNG','CALL_OI','CALL_VOLUME','CALL_LTP','CHNG','STRIKE','PUT_LTP', 'CHNG.1','PUT_VOLUME','PUT_OI','PUT_CHNG','Spot_Price'])
         
+
