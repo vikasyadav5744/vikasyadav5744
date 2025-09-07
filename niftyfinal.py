@@ -31,11 +31,10 @@ with tab1:
   else:
     st.write("upload file")
 
+spot1 =df.Spot_Price[0]
+round1 =spot1.round(-2)
+st.write(spot1,round1)
 st.write(df)
-if df.Spot_Price[0] >0:
-  rd=df.Spot_Price[0].round(-2)
-
-st.write(rd)
 
   
 
@@ -115,6 +114,7 @@ st.write(rd)
 #             .format(precision=2, subset=['Time', 'CHNG', 'CHNG.1', 'Spot_Price']).format(precision=0, subset=['CALL_LTP', 'PUT_LTP', 'CALL_CHNG','CALL_OI','CALL_VOLUME','PUT_VOLUME','PUT_OI','PUT_CHNG','STRIKE']).map(color_two, subset=['STRIKE']).map(color_all, subset=[ 'Spot_Price','CALL_LTP', 'PUT_LTP','CHNG', 'CHNG.1'])
 #     st.dataframe(love01, hide_index=True, column_order=['Time','CALL_CHNG','CALL_OI','CALL_VOLUME','CALL_LTP','CHNG','STRIKE','PUT_LTP', 'CHNG.1','PUT_VOLUME','PUT_OI','PUT_CHNG','Spot_Price'])
         
+
 
 
 
