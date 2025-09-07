@@ -3,13 +3,13 @@ import pandas as pd
 import numpy as np
 from datetime import datetime, time
 
-######### change the main file name from here
+# change the main file name from here
 
 st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="auto", menu_items=None) 
 
 pd.options.mode.copy_on_write = True
 
-############################# visualiazation / interpretation of data
+# visualiazation / interpretation of data
 
 tab1, tab2, tab3=st.tabs(["Nothing", "adding data to main file", "Making main file"])
 with tab1:
@@ -100,6 +100,7 @@ with tab1:
 #             .format(precision=2, subset=['Time', 'CHNG', 'CHNG.1', 'Spot_Price']).format(precision=0, subset=['CALL_LTP', 'PUT_LTP', 'CALL_CHNG','CALL_OI','CALL_VOLUME','PUT_VOLUME','PUT_OI','PUT_CHNG','STRIKE']).map(color_two, subset=['STRIKE']).map(color_all, subset=[ 'Spot_Price','CALL_LTP', 'PUT_LTP','CHNG', 'CHNG.1'])
 #     st.dataframe(love01, hide_index=True, column_order=['Time','CALL_CHNG','CALL_OI','CALL_VOLUME','CALL_LTP','CHNG','STRIKE','PUT_LTP', 'CHNG.1','PUT_VOLUME','PUT_OI','PUT_CHNG','Spot_Price'])
         
+
 
 
 
