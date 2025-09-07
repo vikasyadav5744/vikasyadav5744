@@ -67,7 +67,7 @@ with tab1:
       com1=df.copy()
       com=com1[['CALL_OI','CALL_CHNG','CALL_VOLUME','STRIKE','PUT_OI','PUT_CHNG','PUT_VOLUME', 'call_per','put_per','call_vol_per','put_vol_per']]
       com['call_oi']=com['CALL_OI'].astype(str) +'('+ com['call_per'].astype(str)+'%)'
-      com['call_volume']=com['CALL_VOLUME'.astype(str)+'('+com['call_vol_per'].astype(str)+'%)'
+      com['call_volume']=com['CALL_VOLUME'].astype(str)+'('+com['call_vol_per'].astype(str)+'%)'
       st.dataframe(com, column_order=['call_oi','call_volume','STRIKE'])
   else:
     st.write("upload file")
@@ -152,6 +152,7 @@ with tab1:
 #             .format(precision=2, subset=['Time', 'CHNG', 'CHNG.1', 'Spot_Price']).format(precision=0, subset=['CALL_LTP', 'PUT_LTP', 'CALL_CHNG','CALL_OI','CALL_VOLUME','PUT_VOLUME','PUT_OI','PUT_CHNG','STRIKE']).map(color_two, subset=['STRIKE']).map(color_all, subset=[ 'Spot_Price','CALL_LTP', 'PUT_LTP','CHNG', 'CHNG.1'])
 #     st.dataframe(love01, hide_index=True, column_order=['Time','CALL_CHNG','CALL_OI','CALL_VOLUME','CALL_LTP','CHNG','STRIKE','PUT_LTP', 'CHNG.1','PUT_VOLUME','PUT_OI','PUT_CHNG','Spot_Price'])
         
+
 
 
 
