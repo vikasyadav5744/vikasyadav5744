@@ -22,10 +22,7 @@ with tab1:
     df=df.replace({',':'','-':0, "'":''},regex=True).astype(float)
     df['Time']=time
     df['Spot_Price']=spot
-
-
-    
-    #df['call_per']=(df['CALL_OI']/df['CALL_OI'].max())*100
+    df['call_per']=(df['CALL_OI']/df['CALL_OI'].max())*100
     #df['put_per']=(df['PUT_OI']/df['PUT_OI'].max())*100
     #df['call_vol_per']=(df['CALL_VOLUME']/df['CALL_VOLUME'].max())*100
     #df['put_vol_per']=(df['PUT_VOLUME']/df['PUT_VOLUME'].max())*100
@@ -112,6 +109,7 @@ st.write(df)
 #             .format(precision=2, subset=['Time', 'CHNG', 'CHNG.1', 'Spot_Price']).format(precision=0, subset=['CALL_LTP', 'PUT_LTP', 'CALL_CHNG','CALL_OI','CALL_VOLUME','PUT_VOLUME','PUT_OI','PUT_CHNG','STRIKE']).map(color_two, subset=['STRIKE']).map(color_all, subset=[ 'Spot_Price','CALL_LTP', 'PUT_LTP','CHNG', 'CHNG.1'])
 #     st.dataframe(love01, hide_index=True, column_order=['Time','CALL_CHNG','CALL_OI','CALL_VOLUME','CALL_LTP','CHNG','STRIKE','PUT_LTP', 'CHNG.1','PUT_VOLUME','PUT_OI','PUT_CHNG','Spot_Price'])
         
+
 
 
 
