@@ -70,7 +70,7 @@ with tab1:
       com['call_volume']=com['CALL_VOLUME'].astype(str)+ '<-->' + '('+com['call_vol_per'].astype(str)+'%)'
       com['put_oi']= com['PUT_OI'].astype(str)+'<-->'+'('+com['put_per'].astype(str)+'%)'
       com['put_volume']=com['PUT_VOLUME'].astype(str)+'<-->'+'('+com['put_vol_per'].astype(str)+'%)'
-      st.dataframe(com,height=500, hide_index=True, column_order=['call_oi','call_volume','STRIKE','put_oi','put_volume'],column_config={'STRIKE': st.column_config.TextColumn("STRIKE", frozen=True)})
+      st.dataframe(com, use_container_width=True, height=500, hide_index=True, column_order=['call_oi','call_volume','STRIKE','put_oi','put_volume'],column_config={'STRIKE': st.column_config.TextColumn("STRIKE", frozen=True)})
   else:
     st.write("upload file")
 
@@ -154,6 +154,7 @@ with tab1:
 #             .format(precision=2, subset=['Time', 'CHNG', 'CHNG.1', 'Spot_Price']).format(precision=0, subset=['CALL_LTP', 'PUT_LTP', 'CALL_CHNG','CALL_OI','CALL_VOLUME','PUT_VOLUME','PUT_OI','PUT_CHNG','STRIKE']).map(color_two, subset=['STRIKE']).map(color_all, subset=[ 'Spot_Price','CALL_LTP', 'PUT_LTP','CHNG', 'CHNG.1'])
 #     st.dataframe(love01, hide_index=True, column_order=['Time','CALL_CHNG','CALL_OI','CALL_VOLUME','CALL_LTP','CHNG','STRIKE','PUT_LTP', 'CHNG.1','PUT_VOLUME','PUT_OI','PUT_CHNG','Spot_Price'])
         
+
 
 
 
