@@ -58,12 +58,12 @@ with tab1:
     if spot1>0:
       round1 =spot1.round(-2)
       st.write(spot1,round1)
-      strike1= round1-300
-      strike2 = round1+300
+      strike1= round1-400
+      strike2 = round1+400
       df=df[df.STRIKE.between(strike1,strike2)]
       df1=df.copy()
       df1=df1.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG','call_vol_per','put_vol_per']).map(color_two, subset=['STRIKE']).format(precision=0)
-      st.dataframe(df1, column_order=['Time','call_per','CALL_CHNG','CALL_OI','CALL_VOLUME','call_vol_per','STRIKE','put_vol_per','PUT_VOLUME','PUT_OI','PUT_CHNG','put_per','Spot_Price'])
+      st.dataframe(df1,height=600, column_order=['Time','call_per','CALL_CHNG','CALL_OI','CALL_VOLUME','call_vol_per','STRIKE','put_vol_per','PUT_VOLUME','PUT_OI','PUT_CHNG','put_per','Spot_Price'])
       com1=df.copy()
       com=com1[['CALL_OI','CALL_CHNG','CALL_VOLUME','STRIKE','PUT_OI','PUT_CHNG','PUT_VOLUME', 'call_per','put_per','call_vol_per','put_vol_per']]
       com['call_oi']=com['CALL_OI'].astype(str)+ ' ' +'('+ com['call_per'].astype(str)+'%)'
@@ -154,6 +154,7 @@ with tab1:
 #             .format(precision=2, subset=['Time', 'CHNG', 'CHNG.1', 'Spot_Price']).format(precision=0, subset=['CALL_LTP', 'PUT_LTP', 'CALL_CHNG','CALL_OI','CALL_VOLUME','PUT_VOLUME','PUT_OI','PUT_CHNG','STRIKE']).map(color_two, subset=['STRIKE']).map(color_all, subset=[ 'Spot_Price','CALL_LTP', 'PUT_LTP','CHNG', 'CHNG.1'])
 #     st.dataframe(love01, hide_index=True, column_order=['Time','CALL_CHNG','CALL_OI','CALL_VOLUME','CALL_LTP','CHNG','STRIKE','PUT_LTP', 'CHNG.1','PUT_VOLUME','PUT_OI','PUT_CHNG','Spot_Price'])
         
+
 
 
 
