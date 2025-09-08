@@ -62,12 +62,11 @@ with tab1:
       option_list=df2.STRIKE.unique()
       col1, col2=st.columns(2)
       with col1:
-        list1=st.selectbox("Select Strike1", options=option_list, index=0, key='list01', width=100)
-        list2=st.selectbox("Select Strike2", options=option_list, index=len(option_list)-2, key='list22', width=100)
+        list1=st.selectbox("Select Strike1", options=option_list, index=0, key='list01', width=400)
+        list2=st.selectbox("Select Strike2", options=option_list, index=len(option_list)-2, key='list22', width=400)
         data_refined=df2[df2.STRIKE.between(list1, list2)]
-      with col1:
+     with col2:
         st.bar_chart(data_refined, x='STRIKE', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'], stack=False)
-      with col2:
         st.bar_chart(data_refined, x='STRIKE', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'], stack=False)
     else:
       st.write("upload file")
@@ -80,6 +79,7 @@ with tab1:
       # com['put_volume']=com['PUT_VOLUME'].astype(str)+'<-->'+'('+com['pvper'].astype(str)+'%)'
       #st.dataframe(com, use_container_width=True, height=500, hide_index=True, column_order=['call_oi','call_volume','STRIKE','put_oi','put_volume']) # column_config={'STRIKE': st.column_config.TextColumn('ID', frozen=True)})
  
+
 
 
 
