@@ -32,6 +32,7 @@ def color_all(val, props='background-color:#f7f4d6; color:black'):
 def color_background_red(val):  
   return 'background-color:#f7f4d6; color:green' if val > 0 else 'background-color:#f7f4d6; color:red'
 # visualiazation / interpretation of data
+main_file=[]
 tab1, tab2, tab3=st.tabs(["Nothing", "adding data to main file", "Making main file"])
 with tab1:
   data = st.file_uploader("csv file upload", key='upload1')
@@ -57,6 +58,10 @@ with tab1:
       df1=df.copy()
       df1=df1.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG','cvper','pvper']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['ceper','peper','Spot_Price'])
       st.dataframe(df1, width = 1200, height=600, column_order=['Time','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','STRIKE','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper'])
+      
+      # saving file online 
+      file_path='https://github.com/vikasyadav5744/vikasyadav5744/blob/main/sample.xlsx'
+           
       # bar chart coding
       df2=df.copy()
       option_list=df2.STRIKE.unique()
@@ -71,6 +76,7 @@ with tab1:
     else:
       st.write("upload file")
       
+
 
 
 
