@@ -43,8 +43,8 @@ with tab1:
     df=df.replace({',':'','-':0, "'":''},regex=True).astype(float)
     #df['Time']=time
     df['Spot_Price']=spot
-    df['call_per']=(df['CALL_OI']/df['CALL_OI'].max())*100
-    df['put_per']=(df['PUT_OI']/df['PUT_OI'].max())*100
+    df['ceper']=(df['CALL_OI']/df['CALL_OI'].max())*100
+    df['peper']=(df['PUT_OI']/df['PUT_OI'].max())*100
     df['call_vol_per']=(df['CALL_VOLUME']/df['CALL_VOLUME'].max())*100
     df['put_vol_per']=(df['PUT_VOLUME']/df['PUT_VOLUME'].max())*100
     spot1 =df.Spot_Price[0]
@@ -55,14 +55,15 @@ with tab1:
       strike2 = round1+400
       df=df[df.STRIKE.between(strike1,strike2)]
       df1=df.copy()
-      df1=df1.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG','call_vol_per','put_vol_per']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['call_per','put_per','Spot_Price'])
-      st.dataframe(df1,height=600, column_order=['Time','call_per','CALL_CHNG','CALL_OI','CALL_VOLUME','call_vol_per','STRIKE','put_vol_per','PUT_VOLUME','PUT_OI','PUT_CHNG','put_per','Spot_Price'])
+      df1=df1.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG','call_vol_per','put_vol_per']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['ceper','peper','Spot_Price'])
+      st.dataframe(df1,height=600, column_order=['Time','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','call_vol_per','STRIKE','put_vol_per','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','Spot_Price'])
       com1=df.copy()
-      com=com1[['CALL_OI','CALL_CHNG','CALL_VOLUME','STRIKE','PUT_OI','PUT_CHNG','PUT_VOLUME', 'call_per','put_per','call_vol_per','put_vol_per']]
-      com['call_oi']=com['CALL_OI'].astype(str)+ '<-->' +'('+ com['call_per'].astype(str)+'%)'
+      com=com1[['CALL_OI','CALL_CHNG','CALL_VOLUME','STRIKE','PUT_OI','PUT_CHNG','PUT_VOLUME', 'ceper','peper','call_vol_per','put_vol_per']]
+      com['call_oi']=com['CALL_OI'].astype(str)+ '<-->' +'('+ com['ceper'].astype(str)+'%)'
       com['call_volume']=com['CALL_VOLUME'].astype(str)+ '<-->' + '('+com['call_vol_per'].astype(str)+'%)'
-      com['put_oi']= com['PUT_OI'].astype(str)+'<-->'+'('+com['put_per'].astype(str)+'%)'
+      com['put_oi']= com['PUT_OI'].astype(str)+'<-->'+'('+com['peper'].astype(str)+'%)'
       com['put_volume']=com['PUT_VOLUME'].astype(str)+'<-->'+'('+com['put_vol_per'].astype(str)+'%)'
       st.dataframe(com, use_container_width=True, height=500, hide_index=True, column_order=['call_oi','call_volume','STRIKE','put_oi','put_volume']) # column_config={'STRIKE': st.column_config.TextColumn('ID', frozen=True)})
   else:
     st.write("upload file")
+
