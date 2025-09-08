@@ -60,8 +60,8 @@ with tab1:
       # bar chart coding
       df2=df.copy()
       option_list=df2.STRIKE.unique()
-      list1=st.selectbox("Select Strike1", options=option_list, index=0, key='list1')
-      list2=st.selectbox("Select Strike2", options=option_list, index=len(option_list), key='list2')
+      list1=st.selectbox("Select Strike1", options=option_list, index=0, key='list01')
+      list2=st.selectbox("Select Strike2", options=option_list, index=len(option_list)-2, key='list22')
       data_refined=df2[df2.STRIKE.between(list1, list2)]
       col1, col2=st.columns(2)
       with col1:
@@ -79,6 +79,7 @@ with tab1:
       # com['put_volume']=com['PUT_VOLUME'].astype(str)+'<-->'+'('+com['pvper'].astype(str)+'%)'
       #st.dataframe(com, use_container_width=True, height=500, hide_index=True, column_order=['call_oi','call_volume','STRIKE','put_oi','put_volume']) # column_config={'STRIKE': st.column_config.TextColumn('ID', frozen=True)})
  
+
 
 
 
