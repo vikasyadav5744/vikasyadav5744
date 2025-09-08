@@ -57,11 +57,12 @@ with tab1:
       df1=df.copy()
       df1=df1.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG','cvper','pvper']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['ceper','peper','Spot_Price'])
       st.dataframe(df1, width = 1200, height=600, column_order=['Time','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','STRIKE','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper'])
+      # bar chart coding
       df2=df.copy()
       option_list=df2.STRIKE.unique()
       list1=st.selectbox("Select Strike1", options=option_list, index=0, key='list1')
       list2=st.selectbox("Select Strike2", options=option_list, index=len(option_list), key='list2')
-      data_refined=df2[df2.STRIKE.between(list1, list2)
+      data_refined=df2[df2.STRIKE.between(list1, list2)]
       col1, col2=st.columns(2)
       with col1:
         st.bar_chart(data_refined, x='STRIKE', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'], stack=False)
@@ -78,6 +79,7 @@ with tab1:
       # com['put_volume']=com['PUT_VOLUME'].astype(str)+'<-->'+'('+com['pvper'].astype(str)+'%)'
       #st.dataframe(com, use_container_width=True, height=500, hide_index=True, column_order=['call_oi','call_volume','STRIKE','put_oi','put_volume']) # column_config={'STRIKE': st.column_config.TextColumn('ID', frozen=True)})
  
+
 
 
 
