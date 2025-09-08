@@ -54,14 +54,11 @@ with tab1:
       strike1= round1-400
       strike2 = round1+400
       df=df[df.STRIKE.between(strike1,strike2)]
-      df2=df.copy()
       df1=df.copy()
       df1=df1.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG','cvper','pvper']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['ceper','peper','Spot_Price'])
       st.dataframe(df1, width = 1200, height=600, column_order=['Time','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','STRIKE','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper'])
-      st.bar_chart(df2, x='STRIKE', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'], stack=False, key='bar1')
-      st.bar_chart(df2, x='STRIKE', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'], stack=False, key='bar1')
-      # with col2:
-      #   st.bar_chart(df1, x='STRIKE', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'], stack=False, key='bar2')
+      df2=df.copy()
+      st.bar_chart(df2, x='STRIKE', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'], stack=False)
     else:
       st.write("upload file")
       # OI with percentage
@@ -73,6 +70,7 @@ with tab1:
       # com['put_volume']=com['PUT_VOLUME'].astype(str)+'<-->'+'('+com['pvper'].astype(str)+'%)'
       #st.dataframe(com, use_container_width=True, height=500, hide_index=True, column_order=['call_oi','call_volume','STRIKE','put_oi','put_volume']) # column_config={'STRIKE': st.column_config.TextColumn('ID', frozen=True)})
  
+
 
 
 
