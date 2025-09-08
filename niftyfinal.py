@@ -60,8 +60,8 @@ with tab1:
       col1, col2=st.columns(2)
       with col1:
         st.bar_chart(df1, x='STRIKE', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'], stack=False, key='bar1')
-      with col2:
-        st.bar_chart(df1, x='STRIKE', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'], stack=False, key='bar2')
+      # with col2:
+      #   st.bar_chart(df1, x='STRIKE', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'], stack=False, key='bar2')
     else:
       st.write("upload file")
       # OI with percentage
@@ -73,6 +73,7 @@ with tab1:
       # com['put_volume']=com['PUT_VOLUME'].astype(str)+'<-->'+'('+com['pvper'].astype(str)+'%)'
       #st.dataframe(com, use_container_width=True, height=500, hide_index=True, column_order=['call_oi','call_volume','STRIKE','put_oi','put_volume']) # column_config={'STRIKE': st.column_config.TextColumn('ID', frozen=True)})
  
+
 
 
 
