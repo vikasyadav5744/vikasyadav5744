@@ -48,6 +48,8 @@ with tab1:
     df['peper']=(df['PUT_OI']/df['PUT_OI'].max())*100
     df['cvper']=(df['CALL_VOLUME']/df['CALL_VOLUME'].max())*100
     df['pvper']=(df['PUT_VOLUME']/df['PUT_VOLUME'].max())*100
+    df['ceprice']= df['STRIKE']+(df['PUT_OI']/df['CALL_OI'])*50
+    df['peprice']= df['STRIKE']-(df['PUT_OI']/df['CALL_OI'])*50
     spot1 =df.Spot_Price[0]
     if spot1>0:
       round1 =spot1.round(-2)
@@ -56,8 +58,8 @@ with tab1:
       strike2 = round1+400
       df=df[df.STRIKE.between(strike1,strike2)]
       df1=df.copy()
-      df1=df1.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG','cvper','pvper']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['ceper','peper','Spot_Price'])
-      st.dataframe(df1, width = 1200, height=600, column_order=['Time','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','STRIKE','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper'])
+      df1=df1.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG','cvper','pvper']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['ceper','peper','Spot_Price', 'ceprice', 'peprice'])
+      st.dataframe(df1, width = 1200, height=600, column_order=['Time','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper'])
       
       # saving file online 
       file_path='https://github.com/vikasyadav5744/vikasyadav5744/blob/main/sample.xlsx'
@@ -76,6 +78,7 @@ with tab1:
     else:
       st.write("upload file")
       
+
 
 
 
