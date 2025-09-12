@@ -75,9 +75,11 @@ with tab1:
         st.bar_chart(data_refined, x='STRIKE', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'], stack=False)
         with col2:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'], stack=False)
+          st.bar_chart(data_refined, x='STRIKE', y=['CALL_VOLUME', 'PUT_VOLUME'], color=['#B62626', '#26B669'], stack=False)
     else:
       st.write("upload file")
       
+
 
 
 
