@@ -67,19 +67,23 @@ with tab1:
       # bar chart coding
       df2=df.copy()
       option_list=df2.STRIKE.unique()
-      col1, col2,col3=st.columns(3)
+      col1, col2=st.columns(2)
       with col1:
         list1=st.selectbox("Select Strike1", options=option_list, index=0, key='list01', width=200)
+      with col2:
         list2=st.selectbox("Select Strike2", options=option_list, index=len(option_list)-2, key='list22', width=200)
+      col1, col2,col3=st.columns(3)
+      with col1:
         data_refined=df2[df2.STRIKE.between(list1, list2)]
         st.bar_chart(data_refined, x='STRIKE', y=['CALL_VOLUME', 'PUT_VOLUME'], color=['#B62626', '#26B669'], stack=False)
-        with col2:
+      with col2:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'], stack=False)         
-        with col3:
+      with col3:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'], stack=False)
     else:
       st.write("upload file")
       
+
 
 
 
