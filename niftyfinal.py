@@ -41,7 +41,7 @@ with tab1:
   if data!=None:
     df=pd.read_csv(data, skiprows=1, usecols=['OI', 'CHNG IN OI', 'VOLUME', 'IV', 'LTP', 'CHNG','BID QTY', 'BID', 'ASK', 'ASK QTY', 'STRIKE', 'BID QTY.1', 'BID.1','ASK.1', 'ASK QTY.1', 'CHNG.1', 'LTP.1','IV.1', 'VOLUME.1','CHNG IN OI.1', 'OI.1'])
     df=df.rename(columns={'OI':'CALL_OI','CHNG IN OI':'CALL_CHNG','VOLUME':'CALL_VOLUME','VOLUME.1':'PUT_VOLUME', 'CHNG IN OI.1':'PUT_CHNG','OI.1':'PUT_OI', 'LTP':'CALL_LTP', 'LTP.1':'PUT_LTP'})
-    df=df.replace({",":'', "'":''}, regex=True).replace(r'(?<!^)-', '0', regex=True).replace('-',0).astype(float)
+    df=df.replace({",":'', "'":''}, regex=True).replace(r'(?<!^)-', '', regex=True).replace('-',0).astype(float)
     #df['Time']=time
     df['Spot_Price']=spot
     df['ceper']=(df['CALL_OI']/df['CALL_OI'].max())*100
@@ -83,6 +83,7 @@ with tab1:
     else:
       st.write("upload file")
       
+
 
 
 
