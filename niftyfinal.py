@@ -54,8 +54,10 @@ with tab1:
     if spot1>0:
       round1 =spot1.round(-2)
       st.write(spot1,round1)
-      strike1= round1-400
-      strike2 = round1+400
+      upperval=st.number_input("upper value", step=100, value=400, key='up1')
+      lowerval=st.number_input("lower value", step=100, value==400,key='up2')
+      strike1= round1-lowerval
+      strike2 = round1+upperval
       df=df[df.STRIKE.between(strike1,strike2)]
       df1=df.copy()
       df1=df1.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG','cvper','pvper']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['ceper','peper','Spot_Price', 'ceprice', 'peprice'])
@@ -83,6 +85,7 @@ with tab1:
     else:
       st.write("upload file")
       
+
 
 
 
