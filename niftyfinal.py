@@ -47,7 +47,7 @@ with tab1:
     df['ceper']=(df['CALL_OI']/df['CALL_OI'].max())*100
     df['peper']=(df['PUT_OI']/df['PUT_OI'].max())*100
     df['cvper']=(df['CALL_VOLUME']/df['CALL_VOLUME'].max())*100
-    df['pvper']=(df['PUT_VOLUME']/df['PUT_VOLUME'].max())*100
+    df['pvper']=(df['PUT_VOLUME']/df['PUT_VOLUME'].max())*100 
     df['ceprice']= df['STRIKE']+(df['PUT_OI']/df['CALL_OI'])*50
     df['peprice']= df['STRIKE']-(df['PUT_OI']/df['CALL_OI'])*50
     spot1 =df.Spot_Price[0]
@@ -84,6 +84,7 @@ with tab1:
     else:
       st.write("upload file")
       
+
 
 
 
