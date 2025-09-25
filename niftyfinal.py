@@ -50,7 +50,7 @@ with tab1:
     df['pvper']=(df['PUT_VOLUME']/df['PUT_VOLUME'].max())*100 
     df['ceprice']= df['STRIKE']+((df['PUT_OI']/df['CALL_OI'])*50)
     df['peprice']= df['STRIKE']-((df['PUT_OI']/df['CALL_OI'])*50)
-    df['PCRval']=df['PUT_OI'/'CALL_OI']*50
+    df['PCRval']=df['PUT_OI']/['CALL_OI']*50
     spot1 =df.Spot_Price[0]
     if spot1>0:
       round1 =spot1.round(-2)
@@ -90,6 +90,7 @@ with tab1:
     else:
       st.write("upload file")
       
+
 
 
 
