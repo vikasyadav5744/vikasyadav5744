@@ -55,7 +55,7 @@ with tab1:
     if spot1>0:
       round1 =spot1.round(-2)
       st.write(spot1,round1)
-      upperval=st.number_input("upper value", step=100, value=400, key='up1')
+      upperval=st.number_input("upper value", step=100, value=200, key='up1')
       strike1= round1-upperval
       strike2 = round1+upperval
       df=df[df.STRIKE.between(strike1,strike2)]
@@ -91,6 +91,7 @@ with tab1:
     else:
       st.write("upload file")
       
+
 
 
 
