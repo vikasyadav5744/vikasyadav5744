@@ -55,7 +55,7 @@ with tab1:
     if spot1>0:
       round1 =spot1.round(-2)
       st.write(spot1,round1)
-      upperval=st.number_input("upper value", step=100, value=200, key='up1')
+      upperval=st.number_input("upper value", step=100, value=400, key='up1')
       strike1= round1-upperval
       strike2 = round1+upperval
       df=df[df.STRIKE.between(strike1,strike2)]
@@ -64,9 +64,9 @@ with tab1:
       #st.dataframe(df1, width =300, height=600, column_order=['Time','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval'])
       check=st.checkbox("get concise view", key="check1")
       if check==True:
-        st.dataframe(df1, hide_index=True, width =1200, height=300, column_order=['CALL_CHNG','CALL_OI','CALL_VOLUME','STRIKE','PUT_VOLUME','PUT_OI','PUT_CHNG','cvper', 'pvper','ceper','peper','ceprice','peprice','PCRval'])
+        st.dataframe(df1, hide_index=True, width =1800, height=900, column_order=['CALL_CHNG','CALL_OI','CALL_VOLUME','STRIKE','PUT_VOLUME','PUT_OI','PUT_CHNG','cvper', 'pvper','ceper','peper','ceprice','peprice','PCRval'])
       else:
-        st.dataframe(df1, width =1200, height=300, column_order=['Time','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval'])
+        st.dataframe(df1, width =1800, height=900, column_order=['Time','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval'])
 
       # saving file online 
       file_path='https://github.com/vikasyadav5744/vikasyadav5744/blob/main/sample.xlsx'
@@ -90,6 +90,7 @@ with tab1:
     else:
       st.write("upload file")
       
+
 
 
 
