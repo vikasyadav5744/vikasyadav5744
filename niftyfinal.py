@@ -15,9 +15,9 @@ def highlight_second_highest(s):
   
   def color_val(val):
     if val > threshold1 and val == second_highest:
-      return 'background-color: yellow'
+      return 'background-color: #8c8418'
     elif val > threshold2 and val == second_highest:
-      return 'background-color: #e3e086'
+      return 'background-color: lightyellow'
     elif val > threshold and val == second_highest:
       return 'background-color: #e3e086'
     elif val == max_val:
@@ -97,6 +97,7 @@ with tab1:
     else:
       st.write("upload file")
       
+
 
 
 
