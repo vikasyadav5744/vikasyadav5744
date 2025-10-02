@@ -10,9 +10,16 @@ def highlight_second_highest(s):
   max_val = s.max()
   second_highest = s.nlargest(2).iloc[-1]  # get second largest value
   threshold = 0.75 * max_val
+  threshold1 = 0.90 * max_val
+  threshold2 = 0.80 * max_val
+  
   def color_val(val):
-    if val > threshold and val == second_highest:
+    if val > threshold1 and val == second_highest:
       return 'background-color: yellow'
+    elif val > threshold2 and val == second_highest:
+      return 'background-color: #e3e086'
+    elif val > threshold and val == second_highest:
+      return 'background-color: #e3e086'
     elif val == max_val:
       return 'background-color: green; color:black'
     else:
@@ -90,6 +97,7 @@ with tab1:
     else:
       st.write("upload file")
       
+
 
 
 
