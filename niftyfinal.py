@@ -33,7 +33,7 @@ def highlight_negative(val):
 def color_two(val, props='background-color:orange; color:black'):
   return props if val >0 else ''
 
-def color_all(val, props='background-color:#f7f4d6; color:black'):
+def color_all(val, props='background-color:#9cbcf0; color:black'):
   return props if val >0 else props
     
 def color_background_red(val):  
@@ -97,6 +97,7 @@ with tab1:
     else:
       st.write("upload file")
       
+
 
 
 
