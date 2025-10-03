@@ -23,7 +23,7 @@ def highlight_second_highest(s):
     elif val == max_val:
       return 'background-color: green; color:black'
     else:
-      return 'background-color:#f7f4d6; color:black'
+      return 'background-color:lightgreen; color:black'      #   #f7f4d6    
   return s.apply(color_val)
 # other codes
 def highlight_negative(val):
@@ -97,6 +97,7 @@ with tab1:
     else:
       st.write("upload file")
       
+
 
 
 
