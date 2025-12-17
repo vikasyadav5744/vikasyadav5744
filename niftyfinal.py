@@ -95,8 +95,9 @@ with tab1:
 
  # saving file online 
 file_path='https://github.com/vikasyadav5744/vikasyadav5744/blob/main/sample.xlsx'
+new_file = pd.read_excel(file_path)
+st.write(new_file)
 
-st.write(file_path)
 
 
 
