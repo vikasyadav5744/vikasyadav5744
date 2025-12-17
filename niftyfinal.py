@@ -46,8 +46,7 @@ main_file=[]
 tab1, tab2, tab3=st.tabs(["Nothing", "adding data to main file", "Making main file"])
 with tab1:
   data = st.file_uploader("csv file upload", key='upload1')
-  #time=st.number_input("Please give time", key='time1')
-  
+   
   spot=int(st.number_input("Please give spot price", key='spot1', value=26000, step=100))
   
   if data!=None:
@@ -67,12 +66,13 @@ with tab1:
     spot1 =df.Spot_Price[0]
     if spot1>0:
       round1 =spot1.round(-2)
-      st.write(spot1,round1)
+      st.write(df['Sum_PE'], df['Sum_CE'], df['Overall_Pcr'])
       upperval=st.number_input("upper value", step=100, value=500, key='up1')
       strike1= round1-upperval
       strike2 = round1+upperval
       df=df[df.STRIKE.between(strike1,strike2)]
       df1=df.copy()
+      
       df1=df1.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['ceper','peper','Spot_Price', 'ceprice', 'peprice', 'cvper','pvper'])
       
       st.dataframe(df1, hide_index=True, width =600, height=900, column_order=['Time','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval', 'Sum_PE', 'Sum_CE'], use_container_width=True)
@@ -93,6 +93,7 @@ with tab1:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'], stack=False)         
       with col3:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'], stack=False)
+
 
 
 
