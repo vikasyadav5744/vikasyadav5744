@@ -100,7 +100,8 @@ with tab1:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'], stack=False)
 
 if data!=None:
-  st.write(df)
+  st.write(data)
+
 
 
 
