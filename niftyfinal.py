@@ -92,7 +92,11 @@ with tab1:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'], stack=False)
 
 if data!=None:
-  st.write(data.PUT_OI.sum(), data.CALL_OI.sum(), data.PUT_OI.sum()/data.CALL_OI.sum())
+  df3=pd.read_csv(data, skiprows=1, usecols=['OI', 'CHNG IN OI', 'VOLUME', 'IV', 'LTP', 'CHNG','BID QTY', 'BID', 'ASK', 'ASK QTY', 'STRIKE', 'BID QTY.1', 'BID.1','ASK.1', 'ASK QTY.1', 'CHNG.1', 'LTP.1','IV.1', 'VOLUME.1','CHNG IN OI.1', 'OI.1'])
+  pcr = df3['OI.I'].sum / df3['OI'].sum
+  st.write(pcr)
+  st.write(df3['OI.I'].sum, df3['OI'].sum)
+
 
 
 
