@@ -61,9 +61,9 @@ with tab1:
     df['pvper']=(df['PUT_VOLUME']/df['PUT_VOLUME'].max())*100 
     df['ceprice']= df['STRIKE']+((df['PUT_OI']/df['CALL_OI'])*50)
     df['peprice']= df['STRIKE']-((df['PUT_OI']/df['CALL_OI'])*50)
-    df['Sum_CE']=(df['CALL_OI'].sum()
-    df['Sum_PE']=(df['PUT_OI'].sum()
-    df['Overall_Pcr']=(df['Sum_PE'] / df['Sum_CE']
+    df['Sum_CE']=(df['CALL_OI'].sum())
+    df['Sum_PE']=(df['PUT_OI'].sum())
+    df['Overall_Pcr']=(df['Sum_PE'] / df['Sum_CE'])
     spot1 =df.Spot_Price[0]
     if spot1>0:
       round1 =spot1.round(-2)
@@ -93,6 +93,7 @@ with tab1:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'], stack=False)         
       with col3:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'], stack=False)
+
 
 
 
