@@ -67,7 +67,7 @@ with tab1:
     if spot1>0:
       round1 =spot1.round(-2)
       
-      put=df['Sum_PE'].iloc[0].round(0).style.format(precision=0)
+      put=df['Sum_PE'].iloc[0].style.format(precision=0)
       call=df['Sum_CE'].iloc[0]
       pcr= df['Overall_Pcr'].iloc[0].style.format(precision=3)
       st.write(put, call,pcr)
@@ -98,6 +98,7 @@ with tab1:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'], stack=False)         
       with col3:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'], stack=False)
+
 
 
 
