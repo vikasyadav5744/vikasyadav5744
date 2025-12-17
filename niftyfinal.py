@@ -71,10 +71,10 @@ with tab1:
       #st.dataframe(df1, width =300, height=600, column_order=['Time','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval'])
       check=st.checkbox("get concise view", key="check1")
       
-    # if check==True:
-    #   st.dataframe(df1, hide_index=True, width =600, height=900, column_order=['CALL_CHNG','CALL_OI','CALL_VOLUME','STRIKE','PUT_VOLUME','PUT_OI','PUT_CHNG','cvper', 'pvper','ceper','peper','ceprice','peprice','PCRval'])
-    # else:
-    #   st.dataframe(df1, width =600, height=900, column_order=['Time','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval'])
+      if check==True:
+       st.dataframe(df1, hide_index=True, width =600, height=900, column_order=['CALL_CHNG','CALL_OI','CALL_VOLUME','STRIKE','PUT_VOLUME','PUT_OI','PUT_CHNG','cvper', 'pvper','ceper','peper','ceprice','peprice','PCRval'])
+      else:
+       st.dataframe(df1, width =600, height=900, column_order=['Time','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval'])
 
       # saving file online 
       file_path='https://github.com/vikasyadav5744/vikasyadav5744/blob/main/sample.xlsx'
@@ -98,6 +98,7 @@ with tab1:
    # else:
      # st.write("upload file")
       
+
 
 
 
