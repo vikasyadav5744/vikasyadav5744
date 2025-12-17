@@ -61,9 +61,7 @@ with tab1:
     df['pvper']=(df['PUT_VOLUME']/df['PUT_VOLUME'].max())*100 
     df['ceprice']= df['STRIKE']+((df['PUT_OI']/df['CALL_OI'])*50)
     df['peprice']= df['STRIKE']-((df['PUT_OI']/df['CALL_OI'])*50)
-    
-   spot1 =df.Spot_Price[0]
-   
+    spot1 =df.Spot_Price[0]
     if spot1>0:
       round1 =spot1.round(-2)
       st.write(spot1,round1)
@@ -95,6 +93,7 @@ with tab1:
 
 if data==!None:
   st.write(data.PUT_OI.sum(), data.CALL_OI.sum(), data.PUT_OI.sum()/data.CALL_OI.sum())
+
 
 
 
