@@ -116,8 +116,10 @@ if data!=None:
     df['Sum_CE']=(df['CALL_OI'].sum())
     df['Sum_PE']=(df['PUT_OI'].sum())
     df['Overall_Pcr']=(df['Sum_PE'] / df['Sum_CE'])
-    return df
-st.write(df)
+    data=df.copy()   
+
+st.write(data)
+
 
 
 
