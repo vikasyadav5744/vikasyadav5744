@@ -102,6 +102,24 @@ with tab1:
 if data!=None:
   st.write(data)
 
+if data!=None:
+    df=pd.read_csv(data, skiprows=1, usecols=['OI', 'CHNG IN OI', 'VOLUME', 'IV', 'LTP', 'CHNG','BID QTY', 'BID', 'ASK', 'ASK QTY', 'STRIKE', 'BID QTY.1', 'BID.1','ASK.1', 'ASK QTY.1', 'CHNG.1', 'LTP.1','IV.1', 'VOLUME.1','CHNG IN OI.1', 'OI.1'])
+    df=df.rename(columns={'OI':'CALL_OI','CHNG IN OI':'CALL_CHNG','VOLUME':'CALL_VOLUME','VOLUME.1':'PUT_VOLUME', 'CHNG IN OI.1':'PUT_CHNG','OI.1':'PUT_OI', 'LTP':'CALL_LTP', 'LTP.1':'PUT_LTP'})
+    df=df.replace({",":'', "'":''}, regex=True).replace(r'(?<!^)-', '', regex=True).replace('-',0).astype(float)
+    df['Spot_Price']=spot
+    df['ceper']=(df['CALL_OI']/df['CALL_OI'].max())*100
+    df['peper']=(df['PUT_OI']/df['PUT_OI'].max())*100
+    df['cvper']=(df['CALL_VOLUME']/df['CALL_VOLUME'].max())*100
+    df['pvper']=(df['PUT_VOLUME']/df['PUT_VOLUME'].max())*100 
+    df['ceprice']= df['STRIKE']+((df['PUT_OI']/df['CALL_OI'])*50)
+    df['peprice']= df['STRIKE']-((df['PUT_OI']/df['CALL_OI'])*50)
+    df['Sum_CE']=(df['CALL_OI'].sum())
+    df['Sum_PE']=(df['PUT_OI'].sum())
+    df['Overall_Pcr']=(df['Sum_PE'] / df['Sum_CE'])
+  return df
+st.write(df)
+
+
 
 
 
