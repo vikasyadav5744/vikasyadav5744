@@ -94,6 +94,7 @@ with tab1:
       with col3:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'], stack=False)
 
+st.write(df.PUT_OI.sum(), df.CALL_OI.sum(), df.PUT_OI.sum()/df.CALL_OI.sum())
 
 
 
