@@ -48,7 +48,7 @@ with tab1:
   data = st.file_uploader("csv file upload", key='upload1')
   #time=st.number_input("Please give time", key='time1')
   
-  spot=int(st.number_input("Please give spot price", key='spot1', min_value=26000, step=100))
+  spot=int(st.number_input("Please give spot price", key='spot1', value=26000, step=100))
   
   if data!=None:
     df=pd.read_csv(data, skiprows=1, usecols=['OI', 'CHNG IN OI', 'VOLUME', 'IV', 'LTP', 'CHNG','BID QTY', 'BID', 'ASK', 'ASK QTY', 'STRIKE', 'BID QTY.1', 'BID.1','ASK.1', 'ASK QTY.1', 'CHNG.1', 'LTP.1','IV.1', 'VOLUME.1','CHNG IN OI.1', 'OI.1'])
@@ -93,6 +93,7 @@ with tab1:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'], stack=False)         
       with col3:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'], stack=False)
+
 
 
 
