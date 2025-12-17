@@ -23,7 +23,7 @@ def highlight_second_highest(s):
     elif val == max_val:
       return 'background-color: green; color:black'
     else:
-      return 'background-color:#e1e5e6; color:black'      #   #f7f4d6    
+      return 'background-color:#e1e5e6; color:black'     
   return s.apply(color_val)
 # other codes
 def highlight_negative(val):
@@ -70,10 +70,11 @@ with tab1:
       df1=df1.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['ceper','peper','Spot_Price', 'ceprice', 'peprice', 'cvper','pvper'])
       #st.dataframe(df1, width =300, height=600, column_order=['Time','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval'])
       check=st.checkbox("get concise view", key="check1")
-    if check==True:
-      st.dataframe(df1, hide_index=True, width =600, height=900, column_order=['CALL_CHNG','CALL_OI','CALL_VOLUME','STRIKE','PUT_VOLUME','PUT_OI','PUT_CHNG','cvper', 'pvper','ceper','peper','ceprice','peprice','PCRval'])
-    else:
-      st.dataframe(df1, width =600, height=900, column_order=['Time','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval'])
+      
+    # if check==True:
+    #   st.dataframe(df1, hide_index=True, width =600, height=900, column_order=['CALL_CHNG','CALL_OI','CALL_VOLUME','STRIKE','PUT_VOLUME','PUT_OI','PUT_CHNG','cvper', 'pvper','ceper','peper','ceprice','peprice','PCRval'])
+    # else:
+    #   st.dataframe(df1, width =600, height=900, column_order=['Time','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval'])
 
       # saving file online 
       file_path='https://github.com/vikasyadav5744/vikasyadav5744/blob/main/sample.xlsx'
@@ -97,6 +98,7 @@ with tab1:
    # else:
      # st.write("upload file")
       
+
 
 
 
