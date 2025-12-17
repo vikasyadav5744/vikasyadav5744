@@ -90,13 +90,8 @@ with tab1:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'], stack=False)         
       with col3:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'], stack=False)
-   # else:
-     # st.write("upload file")
 
- # saving file online 
-file_path='https://github.com/vikasyadav5744/vikasyadav5744/blob/main/sample.xlsx'
-new_file = pd.read_excel(file_path, engine='openpyxl')
-st.write(new_file)
+
 
 
 
