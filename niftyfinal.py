@@ -66,7 +66,7 @@ with tab1:
     spot1 =df.Spot_Price[0]
     if spot1>0:
       round1 =spot1.round(-2)
-      st.write(df['Sum_PE'].iloc[0], df['Sum_CE'].iloc[0], df['Overall_Pcr'].iloc[0])
+      st.write(int(df['Sum_PE'].iloc[0]), int(df['Sum_CE'].iloc[0]), int(df['Overall_Pcr'].iloc[0]).round(2))
       upperval=st.number_input("upper value", step=100, value=500, key='up1')
       strike1= round1-upperval
       strike2 = round1+upperval
@@ -93,6 +93,7 @@ with tab1:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'], stack=False)         
       with col3:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'], stack=False)
+
 
 
 
