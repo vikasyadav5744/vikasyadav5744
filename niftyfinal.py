@@ -73,17 +73,7 @@ with tab1:
       #st.dataframe(df1, width =300, height=600, column_order=['Time','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval'])
 
       st.dataframe(df1, hide_index=True, width =600, height=900, column_order=['Time','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval'], use_container_width=True)
-      
-      # check=st.checkbox("get concise view", key="check1")
-      
-      # if check==True:
-      #  st.dataframe(df1, hide_index=True, width =600, height=900, column_order=['CALL_CHNG','CALL_OI','CALL_VOLUME','STRIKE','PUT_VOLUME','PUT_OI','PUT_CHNG','cvper', 'pvper','ceper','peper','ceprice','peprice','PCRval'])
-      # else:
-      #  st.dataframe(df1, width =600, height=900, column_order=['Time','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval'])
-
-      # saving file online 
-      file_path='https://github.com/vikasyadav5744/vikasyadav5744/blob/main/sample.xlsx'
-           
+                    
       # bar chart coding
       df2=df.copy()
       option_list=df2.STRIKE.unique()
@@ -102,7 +92,12 @@ with tab1:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'], stack=False)
    # else:
      # st.write("upload file")
-      
+
+ # saving file online 
+file_path='https://github.com/vikasyadav5744/vikasyadav5744/blob/main/sample.xlsx'
+
+st.write(file_path)
+
 
 
 
