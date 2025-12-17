@@ -62,8 +62,7 @@ with tab1:
     df['ceprice']= df['STRIKE']+((df['PUT_OI']/df['CALL_OI'])*50)
     df['peprice']= df['STRIKE']-((df['PUT_OI']/df['CALL_OI'])*50)
     
-   
-    spot1 =df.Spot_Price[0]
+   spot1 =df.Spot_Price[0]
    
     if spot1>0:
       round1 =spot1.round(-2)
@@ -94,7 +93,9 @@ with tab1:
       with col3:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'], stack=False)
 
-st.write(df.PUT_OI.sum(), df.CALL_OI.sum(), df.PUT_OI.sum()/df.CALL_OI.sum())
+if data==!None:
+  st.write(data.PUT_OI.sum(), data.CALL_OI.sum(), data.PUT_OI.sum()/data.CALL_OI.sum())
+
 
 
 
