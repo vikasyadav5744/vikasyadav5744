@@ -91,8 +91,9 @@ with tab1:
       with col3:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'], stack=False)
 
-if data==!None:
+if data!=None:
   st.write(data.PUT_OI.sum(), data.CALL_OI.sum(), data.PUT_OI.sum()/data.CALL_OI.sum())
+
 
 
 
