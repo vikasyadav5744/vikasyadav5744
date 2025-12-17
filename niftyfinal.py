@@ -38,7 +38,9 @@ def color_all(val, props='background-color:#ceeded; color:black'):
     
 def color_background_red(val):  
   return 'background-color:#f7f4d6; color:green' if val > 0 else 'background-color:#f7f4d6; color:red'
+  
 # visualiazation / interpretation of data
+
 main_file=[]
 tab1, tab2, tab3=st.tabs(["Nothing", "adding data to main file", "Making main file"])
 with tab1:
@@ -62,19 +64,22 @@ with tab1:
     if spot1>0:
       round1 =spot1.round(-2)
       st.write(spot1,round1)
-      upperval=st.number_input("upper value", step=100, value=400, key='up1')
+      upperval=st.number_input("upper value", step=100, value=500, key='up1')
       strike1= round1-upperval
       strike2 = round1+upperval
       df=df[df.STRIKE.between(strike1,strike2)]
       df1=df.copy()
       df1=df1.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['ceper','peper','Spot_Price', 'ceprice', 'peprice', 'cvper','pvper'])
       #st.dataframe(df1, width =300, height=600, column_order=['Time','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval'])
-      check=st.checkbox("get concise view", key="check1")
+
+      st.dataframe(df1, hide_index=True, width =600, height=900, column_order=['CALL_CHNG','CALL_OI','CALL_VOLUME','STRIKE','PUT_VOLUME','PUT_OI','PUT_CHNG','cvper', 'pvper','ceper','peper','ceprice','peprice','PCRval'], use_container_width=True)
       
-      if check==True:
-       st.dataframe(df1, hide_index=True, width =600, height=900, column_order=['CALL_CHNG','CALL_OI','CALL_VOLUME','STRIKE','PUT_VOLUME','PUT_OI','PUT_CHNG','cvper', 'pvper','ceper','peper','ceprice','peprice','PCRval'])
-      else:
-       st.dataframe(df1, width =600, height=900, column_order=['Time','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval'])
+      # check=st.checkbox("get concise view", key="check1")
+      
+      # if check==True:
+      #  st.dataframe(df1, hide_index=True, width =600, height=900, column_order=['CALL_CHNG','CALL_OI','CALL_VOLUME','STRIKE','PUT_VOLUME','PUT_OI','PUT_CHNG','cvper', 'pvper','ceper','peper','ceprice','peprice','PCRval'])
+      # else:
+      #  st.dataframe(df1, width =600, height=900, column_order=['Time','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval'])
 
       # saving file online 
       file_path='https://github.com/vikasyadav5744/vikasyadav5744/blob/main/sample.xlsx'
@@ -98,6 +103,7 @@ with tab1:
    # else:
      # st.write("upload file")
       
+
 
 
 
