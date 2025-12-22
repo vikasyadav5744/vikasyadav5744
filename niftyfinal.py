@@ -1,4 +1,4 @@
-import streamlit as st
+jiimport streamlit as st
 import pandas as pd
 import numpy as np
 from datetime import datetime, time
@@ -72,6 +72,7 @@ with tab1:
       call=df['Sum_CE'].iloc[0]
       pcr= df['Overall_Pcr'].iloc[0]
       st.write(put,call,pcr)
+      st.write('PCR:-{pcr}')
       
       upperval=st.number_input("upper value", step=100, value=500, key='up1')
       strike1= round1-upperval
@@ -99,6 +100,7 @@ with tab1:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'], stack=False)         
       with col3:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'], stack=False)
+
 
 
 
