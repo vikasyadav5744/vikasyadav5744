@@ -54,7 +54,7 @@ def smax12(df, s):
         elif (spot < maxs)& (above_seven !=0)&(spot < above_seven):
             return "WTB " + "- at " + ' ' + str(above_seven)  
     except:
-        return "strong"
+        return "strong" +  "- at" +' '+ str(maxs)
 
 
 # defining functions
@@ -404,4 +404,5 @@ with tab3:
 with tab4:
     st.write("please upload file in historical tab")
     # st.write(newdata[['Time','ce_status', 'volce_status', 'Spot_Price','pe_status','volpe_status' ]])
+
 
