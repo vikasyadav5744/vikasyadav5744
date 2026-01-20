@@ -1,6 +1,6 @@
-import streamlit as st  
-import pandas as pd 
-import numpy as np 
+import streamlit as st
+import pandas as pd
+import numpy as np
 from datetime import datetime, time
 import datetime as dt
 import os
@@ -14,49 +14,6 @@ pd.options.mode.copy_on_write = True
 
 expirynifty=dt.date(2026,1,20)      
 
-
-def sevent5(df, s):
-    spot=df['Spot_Price'].iloc[0]
-    upper = spot + 150
-    lower  = spot - 150
-    maxs = int(df.loc[ df[s] == df[s].max(), 'STRIKE'].iloc[0])
-    try:
-        above_seven = int(df.loc[(df[s] >= (df[s].max()*0.75)) & (df[s] == (df[s].nlargest(2).iloc[-1])), 'STRIKE'].iloc[0])
-        if above_seven!=None:
-            return above_seven 
-        else:
-            return 0  
-    except:
-        return 0
-
-# defining function for WTT and WTB
-
-def smax12(df, s):
-    spot=df['Spot_Price'].iloc[0]
-    upper = spot + 200
-    lower  = spot - 200
-    maxs = int(df.loc[ df[s] == df[s].max(), 'STRIKE'].iloc[0])
-    try:
-        above_seven = int(df.loc[(df[s] >= (df[s].max()*0.75)) & (df[s] == (df[s].nlargest(2).iloc[-1])), 'STRIKE'].iloc[0])
-        if (spot > maxs)& (above_seven !=0)&(above_seven > maxs):
-            return "WTT " + "- at " + ' ' + str(above_seven)
-        elif (spot > maxs)& (above_seven !=0)&(above_seven > maxs) &(spot < above_seven):
-            return "WTT " + "- at " + ' ' + str(above_seven)
-        elif (spot > maxs)& (above_seven !=0)&(above_seven > maxs) &(spot > above_seven):
-            return "WTT " + "- at " + ' ' + str(above_seven) 
-        elif (spot < maxs)& (above_seven !=0)&(above_seven > maxs) &(spot < above_seven):
-            return "WTT " + "- at " + ' ' + str(above_seven) 
-        # WTB scenerioes 
-        elif (spot < maxs)& (above_seven !=0)&(above_seven < maxs):
-            return "WTB " + "- at " + ' ' + str(above_seven)
-        elif (spot > maxs)& (above_seven !=0)&(above_seven< maxs):
-            return "WTB " + "- at " + ' ' + str(above_seven)
-        elif (spot < maxs)& (above_seven !=0)&(spot < above_seven):
-            return "WTB " + "- at " + ' ' + str(above_seven)  
-    except:
-        return "strong" +  "- at" +' '+ str(maxs)
-
-
 # defining functions
 def sell01(val):
     if val <0.30:
@@ -68,7 +25,7 @@ def sell01(val):
     else:
         return 'Overbought'
         
-def highlight_status(val): 
+def highlight_status(val):
     if val == "Oversold":
         return "background-color: #C33536; color:black"
     elif val == "Sell": 
@@ -116,7 +73,7 @@ def color_background_red(val):
 tab1, tab2, tab3, tab4=st.tabs(["Today's NIFTY", "Addition to Master File", "Historical", "others"])
 with tab1:
   data = st.file_uploader("csv file upload", key='upload1')
-  col1, col2, col3, col4, col5, col6, col7=st.columns(7)
+  col1, col2, col3, col4, col5, col6=st.columns(6)
   with col1:
     upperval=st.number_input("upper value", step=100, value=500, key='up1')
   with col2:
@@ -141,83 +98,38 @@ with tab1:
     df['pvper']=(df['PUT_VOLUME']/df['PUT_VOLUME'].max())*100 
     df['ceprice']= df['STRIKE']+((df['PUT_OI']/df['CALL_OI'])*50)
     df['peprice']= df['STRIKE']-((df['PUT_OI']/df['CALL_OI'])*50)
-    df['volceprice']= df['STRIKE']+((df['PUT_VOLUME']/df['CALL_VOLUME'])*50)
-    df['volpeprice']= df['STRIKE']-((df['PUT_VOLUME']/df['CALL_VOLUME'])*50)
     df['Sum_CE']=(df['CALL_OI'].sum())
     df['Sum_PE']=(df['PUT_OI'].sum())
     df['Overall_Pcr']=(df['Sum_PE'] / df['Sum_CE'])
-    
-    # WTT status 
-    df['ce_status'] = (smax12(df, 'CALL_OI'))
-    df['volce_status'] = smax12(df, 'CALL_VOLUME')
-    df['pe_status'] = smax12(df, 'PUT_OI')
-    df['volpe_status'] = smax12(df, 'PUT_VOLUME')
-    # support and ressistance status calculation
-    df['cemaxstr'] =int(df.loc[(df['CALL_OI'] == df['CALL_OI'].max()), 'STRIKE'].iloc[0])
-    df['pemaxstr'] =int(df.loc[(df['PUT_OI'] == df['PUT_OI'].max()), 'STRIKE'].iloc[0])
-    df['volcemaxstr'] =int(df.loc[(df['CALL_VOLUME'] == df['CALL_VOLUME'].max()), 'STRIKE'].iloc[0])
-    df['volpemaxstr'] =int(df.loc[(df['PUT_VOLUME'] == df['PUT_VOLUME'].max()), 'STRIKE'].iloc[0])
-    df['cesevent5str'] =sevent5(df, 'CALL_OI')
-    df['volcesevent5str']  = sevent5(df, 'CALL_VOLUME')
-    df['pesevent5str'] = sevent5(df, 'PUT_OI')
-    df['volpesevent5str'] =sevent5(df, 'PUT_VOLUME')  
+    main_data=df.copy()[['STRIKE','CALL_OI','CALL_CHNG','CALL_VOLUME','PUT_VOLUME', 'PUT_CHNG','PUT_OI', 'CALL_LTP', 'PUT_LTP','ceper','peper','cvper','pvper','ceprice','peprice','Sum_CE','Sum_PE','Overall_Pcr','Time','Expiry','Date','Spot_Price']]
     name=str(df.Time.iloc[0]).replace('.','_')
     name1=str('_data')
     name2=str('.csv')
     fullname=name+name1+name2
+    st.write(fullname)
     # download button
     # if code does not work remove below line
     df101=df[['STRIKE','CHNG','CHNG.1','CALL_OI','CALL_CHNG','CALL_VOLUME','PUT_VOLUME', 'PUT_CHNG','PUT_OI', 'CALL_LTP', 'PUT_LTP','ceper','peper','cvper','pvper','ceprice','peprice','Sum_CE','Sum_PE','Overall_Pcr','Time','Expiry','Date','Spot_Price']]
     csv=df101.to_csv().encode("utf-8")
     with col6:
-        st.download_button(label="Download CSV", data=csv, file_name=fullname, mime="text/csv",icon=":material/download:", key="donw1", width='stretch') 
-    with col7:
-        st.write(fullname)
-    put=int(df['Sum_PE'].iloc[0])
-    call=int(df['Sum_CE'].iloc[0])
-    pcr= df['Overall_Pcr'].iloc[0].round(3)
-    
-    st.write(f"""<div style="background-color: #5e7066; font-size:20px: padding: 25px; border-radius: 20px; text-align: center; margin:10px"> <p> PUT:({put})</p>  <p> PCR: ({pcr}) <p/> CALL: ({call})   </div>""", unsafe_allow_html=True)
-    # WTT status 
-    col1, col2 = st.columns(2)
-    with col1:
-        st.write(f"""<div style="background-color: #871c30; font-size:20px: padding: 5px; border-radius: 5px;text-align: center; margin:3px;">Resistance</div>""", unsafe_allow_html=True)
-    with col2:
-         st.write(f"""<div style="background-color:#426e4b; font-size:20px: padding: 5px; border-radius: 5px;text-align: center; margin:3px;">support</div>""", unsafe_allow_html=True)
-    
-    #  nature of resistance and support
-    col1, col2, col3, col4, col5 = st.columns(5)
-    with col1:
-        st.write(f"""<div style="background-color: #871c30; font-size:20px: padding: 5px; border-radius: 5px; text-align: center; margin:3px;"> CALLs OI :- {df.ce_status.iloc[0]}</div>""", unsafe_allow_html=True)
-    with col2:
-        st.write(f"""<div style="background-color: #871c30; font-size:20px: padding: 5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :-{df.volce_status.iloc[0]}</div>""", unsafe_allow_html=True)
-    with col3:
-        st.write(f"""<div style="background-color: #871c30; font-size:20px: padding: 5px; border-radius: 5px;text-align: center; margin:3px;">Spot :- {df.Spot_Price.iloc[0]}</div>""", unsafe_allow_html=True)
-    with col4:
-        st.write(f"""<div style="background-color:#426e4b; font-size:20px: padding:5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :- {df.volpe_status.iloc[0]}</div>""", unsafe_allow_html=True)     
-    with col5:
-        st.write(f"""<div style="background-color: #68a181; font-size:20px: padding: 5px; border-radius: 5px;text-align: center; margin:3px;">PUTs OI:- {df.pe_status.iloc[0]} </div>""", unsafe_allow_html=True)
-       
-
-    main_data=df.copy()[['STRIKE','CALL_OI','CALL_CHNG','CALL_VOLUME','PUT_VOLUME', 'PUT_CHNG','PUT_OI', 'CALL_LTP', 'PUT_LTP','ceper','peper','cvper','pvper','ceprice','peprice','Sum_CE','Sum_PE','Overall_Pcr','Time','Expiry','Date','Spot_Price']]
-    
+        st.download_button(label="Download CSV", data=csv, file_name=fullname, mime="text/csv",icon=":material/download:", key="donw1", width="stretch") 
     spot1 =df.Spot_Price[0]
     if spot1>0:
       round1 =spot1.round(-2)
+      put=df['Sum_PE'].iloc[0]
+      call=df['Sum_CE'].iloc[0]
+      pcr= df['Overall_Pcr'].iloc[0]
+      col1, col2 = st.columns(2)
+      with col1:
+          st.write(put, call,pcr)
+      with col2:
+          st.write(df.Spot_Price.iloc[0])
       strike1= round1-upperval
       strike2 = round1+upperval
       df=df[df.STRIKE.between(strike1,strike2)]
       df1=df.copy()
-      spot2=spot1.round(-2)
-      resis_range1= df.loc[df['STRIKE']==spot2, 'volceprice'].iloc[0]
-      resis_range2= df.loc[df['STRIKE']==spot2, 'ceprice'].iloc[0]
-      support_range1= df.loc[df['STRIKE']==spot2, 'volpeprice'].iloc[0]
-      support_range2= df.loc[df['STRIKE']==spot2, 'peprice'].iloc[0]
-      st.write('spot:', spot2,'Current Ressistance:', int(resis_range1), '-', int(resis_range2))
-      st.write('spot:', spot2,'Current Support:', int(support_range1), '-', int(support_range2))
-      st.write("option Chain")
       df2=df1.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['ceper','peper','Spot_Price', 'ceprice', 'peprice', 'cvper','pvper']).format(precision=2, subset=['Time']).map(color_background_red, subset=['CHNG', 'CHNG.1']).map(color_all, subset=['CALL_LTP', 'PUT_LTP'])        #.apply(highlight_row1, axis=1, subset=['STRIKE','ceprice', 'peprice', 'cvper', 'pvper'])    
-      st.dataframe(df2, hide_index=True, width ='stretch', height=600, column_order=['Time','volceprice', 'CALL_LTP','CHNG','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval', 'Spot_Price','CHNG.1','PUT_LTP', 'volpeprice'] )
+      st.dataframe(df2, hide_index=True, width =600, height=600, column_order=['Time','CALL_LTP','CHNG','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval', 'Spot_Price','CHNG.1','PUT_LTP'], use_container_width=True)
                     
 #     bar chart coding
       df2=df.copy()
@@ -235,8 +147,7 @@ with tab1:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_OI', 'PUT_OI'], color=['#B62626', '#26B669'], stack=False)         
       with col3:
           st.bar_chart(data_refined, x='STRIKE', y=['CALL_CHNG', 'PUT_CHNG'], color=['#B62626', '#26B669'], stack=False)
-    st.write(df)
-      
+
 # adding data to master file 
 with tab2:
     col1, col2=st.columns(2)
@@ -272,54 +183,20 @@ with tab3:
         fullname31=name31+name32+name33
         csv12=newdata.to_csv().encode("utf-8")
         st.download_button(label="Download CSV", data=csv12, file_name=fullname31, mime="text/csv",icon=":material/download:", key="donw121") 
-                       
-        # support and ressistance status calculation
-        newdata['cemaxstr'] =int(newdata.loc[(newdata['CALL_OI'] == newdata['CALL_OI'].max()), 'STRIKE'].iloc[0])
-        newdata['pemaxstr'] =int(newdata.loc[(newdata['PUT_OI'] == newdata['PUT_OI'].max()), 'STRIKE'].iloc[0])
-        newdata['volcemaxstr'] =int(newdata.loc[(newdata['CALL_VOLUME'] == newdata['CALL_VOLUME'].max()), 'STRIKE'].iloc[0])
-        newdata['volpemaxstr'] =int(newdata.loc[(newdata['PUT_VOLUME'] == newdata['PUT_VOLUME'].max()), 'STRIKE'].iloc[0])
-        newdata['cesevent5str'] =sevent5(newdata, 'CALL_OI')
-        newdata['volcesevent5str']  = sevent5(newdata, 'CALL_VOLUME')
-        newdata['pesevent5str'] = sevent5(newdata, 'PUT_OI')
-        newdata['volpesevent5str'] =sevent5(newdata, 'PUT_VOLUME')
-        col1, col2=st.columns(2)
-        with col1:
-            timeopt=newdata.Time.unique()
-            timesel=st.selectbox("select time from here", key='select1', options=timeopt)
-            newdata0=newdata[newdata.Time==timesel]
-        with col2:     
-            upperval1=st.number_input("upper value", step=100, value=500, key='ups1')
+        timeopt = newdata.Time.unique()
+        timesel=st.selectbox("select time from here", key='select1', options=timeopt)
+        newdata0=newdata[newdata.Time==timesel]
         spot2 =newdata0.Spot_Price.iloc[0]
+        upperval1=st.number_input("upper value", step=100, value=500, key='ups1')
         if spot2>0:
             round1 =spot2.round(-2)
             strike1= round1-upperval1
             strike2 = round1+upperval1
+            st.write(strike1,strike2, spot2)
             newdata2=newdata0[newdata0.STRIKE.between(strike1,strike2)]
-             # WTT status 
-            newdata2['ce_status'] = smax12(newdata2, 'CALL_OI')
-            newdata2['volce_status'] = smax12(newdata2, 'CALL_VOLUME')
-            newdata2['pe_status'] = smax12(newdata2, 'PUT_OI')
-            newdata2['volpe_status'] = smax12(newdata2, 'PUT_VOLUME')
-            col1, col2 = st.columns(2)
-            with col1:
-                st.write(f"""<div style="background-color: #871c30; font-size:20px: padding: 5px; border-radius: 5px;text-align: center; margin:3px;">Resistance</div>""", unsafe_allow_html=True)
-            with col2:
-                st.write(f"""<div style="background-color:#426e4b; font-size:20px: padding: 5px; border-radius: 5px;text-align: center; margin:3px;">Support</div>""", unsafe_allow_html=True)
-           
-            #  nature of resistance and support
-            col1, col2, col3, col4, col5 = st.columns(5)
-            with col1:
-                st.write(f"""<div style="background-color: #871c30; font-size:20px: padding: 5px; border-radius: 5px; text-align: center; margin:3px;"> CALLs OI :- {newdata2.ce_status.iloc[0]}</div>""", unsafe_allow_html=True)
-            with col2:
-                st.write(f"""<div style="background-color: #871c30; font-size:20px: padding: 5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :-{newdata2.volce_status.iloc[0]}</div>""", unsafe_allow_html=True)
-            with col3:
-                st.write(f"""<div style="background-color: #871c30; font-size:20px: padding: 5px; border-radius: 5px;text-align: center; margin:3px;">Spot :- {newdata2.Spot_Price.iloc[0]} </div>""", unsafe_allow_html=True)
-            with col4:
-                st.write(f"""<div style="background-color:#426e4b; font-size:20px: padding:5px; border-radius: 5px;text-align: center; margin:3px;">VOLUME :- {newdata2.volpe_status.iloc[0]}</div>""", unsafe_allow_html=True)
-            with col5:
-                st.write(f"""<div style="background-color: #68a181; font-size:20px: padding: 5px; border-radius: 5px;text-align: center; margin:3px;">PUTs OI:- {newdata2.pe_status.iloc[0]} </div>""", unsafe_allow_html=True)
             df2=newdata2.style.apply(highlight_second_highest,subset=['CALL_OI','PUT_OI','CALL_VOLUME','PUT_VOLUME','CALL_CHNG','PUT_CHNG']).map(color_two, subset=['STRIKE']).format(precision=0).map(color_all, subset=['ceper','peper','Spot_Price', 'ceprice', 'peprice', 'cvper','pvper']).format(precision=2, subset=['Time']).map(color_background_red, subset=['CHNG', 'CHNG.1']).map(color_all, subset=['CALL_LTP', 'PUT_LTP'])      #.apply(highlight_row1, axis=1, subset=['STRIKE','ceprice', 'peprice', 'cvper', 'pvper'])
-            st.dataframe(df2, hide_index=True, width ='stretch', height=600, column_order=['Time','CALL_LTP','CHNG','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval', 'Spot_Price','CHNG.1','PUT_LTP'],)
+            st.dataframe(df2, hide_index=True, width =600, height=600, column_order=['Time','CALL_LTP','CHNG','ceper','CALL_CHNG','CALL_OI','CALL_VOLUME','cvper','ceprice','STRIKE','peprice','pvper','PUT_VOLUME','PUT_OI','PUT_CHNG','peper','PCRval', 'Spot_Price','CHNG.1','PUT_LTP'], use_container_width=True)
+    
             strikes = list(newdata.STRIKE.unique())
             col1, col2, col3, col4, col5, col6=st.columns(6)
             spot_price = newdata0.Spot_Price.iloc[0].round(-2)
@@ -402,7 +279,6 @@ with tab3:
 # adding data to master file 
 
 with tab4:
-    st.write("please upload file in historical tab")
-    # st.write(newdata[['Time','ce_status', 'volce_status', 'Spot_Price','pe_status','volpe_status' ]])
-
+    st.write("codes for testing anything")
+  
 
